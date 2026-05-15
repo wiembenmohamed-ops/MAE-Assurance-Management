@@ -1,9 +1,13 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) { header("Location: login.php"); exit(); }
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
 include 'db-connect.php';
 
-// جلب قائمة الزبائن من قاعدة البيانات
+// Récupérer la liste des clients depuis la base de données
 $sql = "SELECT * FROM clients ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 ?>
@@ -14,23 +18,20 @@ $result = mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <title>Liste des Clients - Assurance</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { color: #333; text-align: center; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; text-align: center; margin-bottom: 20px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
         th { background-color: #2c3e50; color: white; }
         tr:nth-child(even) { background-color: #f9f9f9; }
-        .btn-add { display: inline-block; padding: 10px 15px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 20px; }
+        .btn-add { display: inline-block; padding: 10px 15px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 4px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Liste des Clients Enregistrés</h2>
-
-    <a href="add-client.php" class="btn-add">+ Ajouter un nouveau client</a>
-    <a href="dashboard.php" style="float: right; color: #007bff; text-decoration: none;">Retour au Dashboard</a>
+    <h2>Liste des Clients</h2>
 
     <table>
         <thead>
